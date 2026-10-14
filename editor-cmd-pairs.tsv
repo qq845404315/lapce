@@ -1,0 +1,141 @@
+NO_SER	Move Line Up
+move_line_up	Move Line Down
+move_line_down	Insert New Line
+insert_new_line	Insert Tab
+insert_tab	New Line Above
+new_line_above	New Line Below
+new_line_below	Delete Backward
+delete_backward	Delete Forward
+delete_forward	Delete Line
+delete_line	Delete Forward and Insert
+delete_forward_and_insert	Delete Word and Insert
+delete_word_and_insert	Delete Line and Insert
+delete_line_and_insert	Delete Word Forward
+delete_word_forward	Delete Word Backward
+delete_word_backward	Delete to Beginning of Line
+delete_to_beginning_of_line	Delete to End of Line
+delete_to_end_of_line	Delete to End and Insert
+delete_to_end_and_insert	Join Lines
+join_lines	Indent Line
+indent_line	Outdent Line
+outdent_line	Toggle Line Comment
+toggle_line_comment	Undo
+undo	Redo
+redo	Copy
+clipboard_copy	Cut
+clipboard_cut	Paste
+clipboard_paste	Yank
+yank	Paste
+paste	Paste Before
+paste_before	Normal Mode
+normal_mode	Insert Mode
+insert_mode	Insert First non Blank
+insert_first_non_blank	Append
+append	Append End of Line
+append_end_of_line	Toggle Visual Mode
+toggle_visual_mode	Toggle Linewise Visual Mode
+toggle_linewise_visual_mode	Toggle Blockwise Visual Mode
+toggle_blockwise_visual_mode	Duplicate Line Up
+duplicate_line_up	Duplicate Line Down
+duplicate_line_down	Normalize Line Endings
+normalize_line_endings	Down
+down	Up
+up	Left
+left	Right
+right	Word Backward
+word_backward	Word Forward
+word_forward	Word End Forward
+word_end_forward	Document Start
+document_start	Document End
+document_end	Line End
+line_end	Line Start
+line_start	Line Start non Blank
+line_start_non_blank	Go to Line Default Last
+go_to_line_default_last	Go to Line Default First
+go_to_line_default_first	Match Pairs
+match_pairs	Next Unmatched Right Bracket
+next_unmatched_right_bracket	Previous Unmatched Left Bracket
+previous_unmatched_left_bracket	Next Unmatched Right Curly Bracket
+next_unmatched_right_curly_bracket	Previous Unmatched Left Curly Bracket
+previous_unmatched_left_curly_bracket	Paragraph Forward
+paragraph_forward	Paragraph Backward
+paragraph_backward	Page Up
+page_up	Page Down
+page_down	Scroll Up
+scroll_up	Scroll Down
+scroll_down	Center of Window
+center_of_window	Top of Window
+top_of_window	Bottom of Window
+bottom_of_window	Split Vertical
+split_vertical	Split Horizontal
+split_horizontal	Split Exchange
+split_exchange	Split Close
+split_close	Split Right
+split_right	Split Left
+split_left	Split Up
+split_up	Split Down
+split_down	Search Whole Word Forward
+search_whole_word_forward	Search Forward
+search_forward	Search Backward
+search_backward	Toggle Case Sensitive Search
+toggle_case_sensitive_search	Global Search Refresh
+global_search_refresh	Clear Search
+clear_search	Search In View
+search_in_view	List Select
+list.select	List Next
+list.next	List Next Page
+list.next_page	List Previous
+list.previous	List Previous Page
+list.previous_page	List Expand
+list.expand	Jump to Next Snippet Placeholder
+jump_to_next_snippet_placeholder	Jump to Previous Snippet Placeholder
+jump_to_prev_snippet_placeholder	Show Code Actions
+show_code_actions	Get Completion
+get_completion	Get Signature
+get_signature	Toggle Breakpoint
+toggle_breakpoint	Close Modal
+modal.close	Go to Definition
+goto_definition	Go to Type Definition
+goto_type_definition	Show Hover
+show_hover	Go to Next Difference
+next_diff	Go to Previous Difference
+previous_diff	Toggle Code Lens
+toggle_code_lens	Toggle History
+toggle_history	Format Document
+format_document	Search
+search	Focus Replace Editor
+focus_replace_editor	Focus Find Editor
+focus_find_editor	Inline Find Right
+inline_find_right	Inline Find Left
+inline_find_left	On Screen Find
+on_screen_find	Create Mark
+create_mark	Go to Mark
+go_to_mark	Repeat Last Inline Find
+repeat_last_inline_find	Save
+save	Save Without Formatting
+save_without_format	Save And Exit
+save_and_exit	Force Exit
+force_exit	Rename Symbol
+rename_symbol	Confirm Rename
+confirm_rename	Select Next Syntax Item
+select_next_syntax_item	Select Previous Syntax Item
+select_previous_syntax_item	Open Source File
+open_source_file	Inline Completion Select
+inline_completion.select	Inline Completion Next
+inline_completion.next	Inline Completion Previous
+inline_completion.previous	Inline Completion Cancel
+inline_completion.cancel	Inline Completion Invoke
+inline_completion.invoke	Motion Mode Delete
+motion_mode_delete	Motion Mode Indent
+motion_mode_indent	Motion Mode Outdent
+motion_mode_outdent	Motion Mode Yank
+motion_mode_yank	Select Undo
+select_undo	Insert Cursor Above
+insert_cursor_above	Insert Cursor Below
+insert_cursor_below	Insert Cursor End of Line
+insert_cursor_end_of_line	Select Current Line
+select_current_line	Select All Current
+select_all_current	Select Next Current
+select_next_current	Select Skip Current
+select_skip_current	Select All
+select_all	
