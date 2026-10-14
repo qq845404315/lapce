@@ -588,7 +588,7 @@ fn panel_picker(
                     },
                     || false,
                     || false,
-                    move || tooltip,
+                    move || tooltip.clone(),
                     config,
                 )
                 .draggable()

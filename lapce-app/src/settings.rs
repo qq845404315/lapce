@@ -199,7 +199,7 @@ impl SettingsData {
                     size: cx.create_rw_signal(Size::ZERO),
                     header: true,
                 });
-                data_kinds.push_back((section_label, pos));
+                data_kinds.push_back((section_label.clone(), pos));
                 for (name, desc) in fields.iter().zip(descs.iter()) {
                     let field = name.replace('_', "-");
 

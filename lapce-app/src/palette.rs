@@ -32,7 +32,7 @@ use lapce_rpc::proxy::{PathRequest, ProxyResponse};
 use lapce_xi_rope::Rope;
 use lsp_types::{DocumentSymbol, DocumentSymbolResponse};
 use nucleo::Utf32Str;
-use strum::{EnumMessage, IntoEnumIterator};
+use strum::IntoEnumIterator;
 use tracing::error;
 
 use self::{
