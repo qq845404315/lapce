@@ -183,8 +183,12 @@ impl SettingsData {
                 ),
             ] {
                 let pos = cx.create_rw_signal(Point::new(0.0, item_height_accum));
+                let section_label = crate::i18n::t_or(
+                    &format!("settings.section.{}", kind.to_lowercase()),
+                    kind,
+                );
                 data_items.push_back(SettingsItem {
-                    kind: kind.to_string(),
+                    kind: section_label.clone(),
                     name: "".to_string(),
                     field: "".to_string(),
                     filter_text: "".to_string(),
@@ -195,7 +199,7 @@ impl SettingsData {
                     size: cx.create_rw_signal(Size::ZERO),
                     header: true,
                 });
-                data_kinds.push_back((kind.to_string(), pos));
+                data_kinds.push_back((section_label, pos));
                 for (name, desc) in fields.iter().zip(descs.iter()) {
                     let field = name.replace('_', "-");
 
@@ -212,12 +216,25 @@ impl SettingsData {
                         (SettingsValue::from(value.clone()), value)
                     };
 
-                    let name = format!(
-                        "{kind}: {}",
-                        name.replace('_', " ").to_title_case()
+                    let field_title = name.replace('_', " ").to_title_case();
+                    let name_key = format!(
+                        "settings.{}.{}.name",
+                        kind.to_lowercase(),
+                        field
                     );
+                    let desc_key = format!(
+                        "settings.{}.{}.desc",
+                        kind.to_lowercase(),
+                        field
+                    );
+                    let name = format!(
+                        "{section_label}: {}",
+                        crate::i18n::t_or(&name_key, &field_title)
+                    );
+                    let description = crate::i18n::t_or(&desc_key, desc);
                     let kind = kind.to_lowercase();
-                    let filter_text = format!("{kind} {name} {desc}").to_lowercase();
+                    let filter_text =
+                        format!("{kind} {name} {description}").to_lowercase();
                     let filter_text =
                         format!("{filter_text}{}", filter_text.replace(' ', ""));
                     data_items.push_back(SettingsItem {
@@ -225,7 +242,7 @@ impl SettingsData {
                         name,
                         field,
                         filter_text,
-                        description: desc.to_string(),
+                        description,
                         value,
                         pos: cx.create_rw_signal(Point::ZERO),
                         size: cx.create_rw_signal(Size::ZERO),
@@ -441,7 +458,7 @@ pub fn settings_view(
             .style(|s| s.flex_col().width_pct(100.0)),
             stack((
                 switcher_item(
-                    "Plugin Settings".to_string(),
+                    crate::i18n::t("settings.plugin_settings"),
                     Box::new(move || {
                         plugin_kinds
                             .with_untracked(|k| k.get(0).map(|(_, pos)| *pos))
@@ -489,7 +506,7 @@ pub fn settings_view(
             container({
                 TextInputBuilder::new()
                     .build_editor(search_editor)
-                    .placeholder(|| "Search Settings".to_string())
+                    .placeholder(|| crate::i18n::t("settings.search_placeholder"))
                     .keyboard_navigable()
                     .style(move |s| {
                         s.width_pct(100.0)
@@ -821,7 +838,7 @@ impl VirtualVector<(String, String)> for BTreeMapVirtualList {
 
 fn color_section_list(
     kind: &str,
-    header: &str,
+    header: impl Into<String>,
     list: impl Fn() -> BTreeMap<String, String> + 'static,
     max_width: Memo<f64>,
     text_height: Memo<f64>,
@@ -832,7 +849,7 @@ fn color_section_list(
 
     let kind = kind.to_string();
     stack((
-        text(header).style(|s| {
+        text(header.into()).style(|s| {
             s.margin_top(10)
                 .margin_horiz(20)
                 .font_bold()
@@ -981,7 +998,7 @@ fn color_section_list(
                         let key = key.clone();
                         let local_key = key.clone();
                         let local_kind = kind.clone();
-                        text("Reset")
+                        text(crate::i18n::t("settings.reset"))
                             .on_click_stop(move |_| {
                                 LapceConfig::reset_setting(
                                     &format!("color-theme.{local_kind}"),
@@ -1094,7 +1111,7 @@ pub fn theme_color_settings_view(
             container({
                 TextInputBuilder::new()
                     .build_editor(search_editor)
-                    .placeholder(|| "Search Settings".to_string())
+                    .placeholder(|| crate::i18n::t("settings.search_placeholder"))
                     .keyboard_navigable()
                     .style(move |s| {
                         s.width_pct(100.0)
@@ -1109,7 +1126,7 @@ pub fn theme_color_settings_view(
             .style(|s| s.padding_vert(20.0).padding_horiz(20.0)),
             color_section_list(
                 "base",
-                "Base Colors",
+                crate::i18n::t("settings.theme.base_colors"),
                 move || {
                     let filter = buffer.get().text().to_string();
                     config.with(|c| {
@@ -1134,7 +1151,7 @@ pub fn theme_color_settings_view(
             ),
             color_section_list(
                 "syntax",
-                "Syntax Colors",
+                crate::i18n::t("settings.theme.syntax_colors"),
                 move || {
                     let filter = buffer.get().text().to_string();
                     config.with(|c| {
@@ -1158,7 +1175,7 @@ pub fn theme_color_settings_view(
             ),
             color_section_list(
                 "ui",
-                "UI Colors",
+                crate::i18n::t("settings.theme.ui_colors"),
                 move || {
                     let filter = buffer.get().text().to_string();
                     config.with(|c| {

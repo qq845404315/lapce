@@ -75,12 +75,12 @@ pub fn plugin_panel(
 
     PanelBuilder::new(config, position)
         .add(
-            "Installed",
+            crate::i18n::t("panel.plugin.installed"),
             installed_view(plugin.clone()),
             window_tab_data.panel.section_open(PanelSection::Installed),
         )
         .add(
-            "Available",
+            crate::i18n::t("panel.plugin.available"),
             available_view(plugin.clone(), core_rpc),
             window_tab_data.panel.section_open(PanelSection::Available),
         )
@@ -141,11 +141,11 @@ fn installed_view(plugin: PluginData) -> impl View {
                             if disabled.with(|d| d.contains(&volt_id))
                                 || workspace_disabled.with(|d| d.contains(&volt_id))
                             {
-                                "Disabled".to_string()
+                                crate::i18n::t("panel.plugin.disabled")
                             } else if volt.meta.with(|m| {
                                 volt.latest.with(|i| i.version != m.version)
                             }) {
-                                "Upgrade".to_string()
+                                crate::i18n::t("plugin.upgrade_available")
                             } else {
                                 format!("v{}", volt.meta.with(|m| m.version.clone()))
                             }
@@ -162,7 +162,7 @@ fn installed_view(plugin: PluginData) -> impl View {
                         || LapceIcons::SETTINGS,
                         || false,
                         || false,
-                        || "Options",
+                        || crate::i18n::t("plugin.options"),
                         config,
                     )
                     .style(|s| s.padding_left(6.0))
@@ -233,11 +233,11 @@ fn available_view(plugin: PluginData, core_rpc: CoreRpcHandler) -> impl View {
             });
             label(move || {
                 if installed.get() {
-                    "Installed".to_string()
+                    crate::i18n::t("panel.plugin.installed")
                 } else if installing.get() {
-                    "Installing".to_string()
+                    crate::i18n::t("plugin.installing")
                 } else {
-                    "Install".to_string()
+                    crate::i18n::t("plugin.install")
                 }
             })
             .disabled(move || installed.get() || installing.get())
@@ -356,7 +356,7 @@ fn available_view(plugin: PluginData, core_rpc: CoreRpcHandler) -> impl View {
                 TextInputBuilder::new()
                     .is_focused(is_focused)
                     .build_editor(editor.clone())
-                    .placeholder(|| "Search extensions".to_string())
+                    .placeholder(|| crate::i18n::t("plugin.search_extensions"))
                     .on_cursor_pos(move |point| {
                         cursor_x.set(point.x);
                     })

@@ -4,6 +4,7 @@
 modal = false
 color-theme = "Lapce Dark"
 icon-theme = "Lapce Codicons"
+language = "en-US"
 custom-titlebar = true
 file-explorer-double-click = false
 auto-reload-plugin = false

@@ -281,7 +281,7 @@ pub fn keymap_view(editors: Editors, common: Rc<CommonData>) -> impl View {
     stack((
         container(
             text_input_view
-                .placeholder(|| "Search Key Bindings".to_string())
+                .placeholder(|| crate::i18n::t("keymap.search_placeholder"))
                 .keyboard_navigable()
                 .request_focus(|| {})
                 .style(move |s| {
@@ -293,9 +293,11 @@ pub fn keymap_view(editors: Editors, common: Rc<CommonData>) -> impl View {
         )
         .style(|s| s.padding_bottom(10.0).width_pct(100.0)),
         stack((
-            container(text("Command").style(move |s| {
-                s.text_ellipsis().padding_horiz(10.0).min_width(0.0)
-            }))
+            container(
+                text(crate::i18n::t("keymap.command")).style(move |s| {
+                    s.text_ellipsis().padding_horiz(10.0).min_width(0.0)
+                }),
+            )
             .style(move |s| {
                 s.items_center()
                     .height_pct(100.0)
@@ -305,7 +307,7 @@ pub fn keymap_view(editors: Editors, common: Rc<CommonData>) -> impl View {
                     .border_right(1.0)
                     .border_color(config.get().color(LapceColor::LAPCE_BORDER))
             }),
-            text("Key Binding").style(move |s| {
+            text(crate::i18n::t("keymap.key_binding")).style(move |s| {
                 s.width(200.0)
                     .items_center()
                     .padding_horiz(10.0)
@@ -313,7 +315,7 @@ pub fn keymap_view(editors: Editors, common: Rc<CommonData>) -> impl View {
                     .border_right(1.0)
                     .border_color(config.get().color(LapceColor::LAPCE_BORDER))
             }),
-            text("Modes").style(move |s| {
+            text(crate::i18n::t("keymap.modes")).style(move |s| {
                 s.width(200.0)
                     .items_center()
                     .padding_horiz(10.0)
@@ -322,7 +324,7 @@ pub fn keymap_view(editors: Editors, common: Rc<CommonData>) -> impl View {
                     .border_color(config.get().color(LapceColor::LAPCE_BORDER))
                     .apply_if(!modal.get(), |s| s.hide())
             }),
-            container(text("When").style(move |s| {
+            container(text(crate::i18n::t("keymap.when")).style(move |s| {
                 s.text_ellipsis().padding_horiz(10.0).min_width(0.0)
             }))
             .style(move |s| {
@@ -430,7 +432,7 @@ fn keyboard_picker_view(
                     .background(config.color(LapceColor::EDITOR_BACKGROUND))
             }),
             stack((
-                text("Save")
+                text(crate::i18n::t("keymap.save"))
                     .style(move |s| {
                         let config = config.get();
                         s.width(100.0)
@@ -465,7 +467,7 @@ fn keyboard_picker_view(
                             );
                         }
                     }),
-                text("Cancel")
+                text(crate::i18n::t("keymap.cancel"))
                     .style(move |s| {
                         let config = config.get();
                         s.margin_left(20.0)

@@ -50,7 +50,24 @@ pub enum CommandKind {
 }
 
 impl CommandKind {
-    pub fn desc(&self) -> Option<&'static str> {
+    /// Localized display label for this command. Falls back to the strum
+    /// message, then to the command id.
+    pub fn desc(&self) -> Option<String> {
+        // Prefer the strum serialize id (stable command id used in keymaps).
+        let id = match &self {
+            CommandKind::Workbench(cmd) => cmd.to_string(),
+            CommandKind::Edit(cmd) => cmd.to_string(),
+            CommandKind::Move(cmd) => cmd.to_string(),
+            CommandKind::Scroll(cmd) => cmd.to_string(),
+            CommandKind::Focus(cmd) => cmd.to_string(),
+            CommandKind::MotionMode(cmd) => cmd.to_string(),
+            CommandKind::MultiSelection(cmd) => cmd.to_string(),
+        };
+        let key = format!("cmd.{id}");
+        let localized = crate::i18n::t_or(&key, "");
+        if !localized.is_empty() {
+            return Some(localized);
+        }
         match &self {
             CommandKind::Workbench(cmd) => cmd.get_message(),
             CommandKind::Edit(cmd) => cmd.get_message(),
@@ -60,6 +77,7 @@ impl CommandKind {
             CommandKind::MotionMode(cmd) => cmd.get_message(),
             CommandKind::MultiSelection(cmd) => cmd.get_message(),
         }
+        .map(|s| s.to_string())
     }
 
     pub fn str(&self) -> &'static str {

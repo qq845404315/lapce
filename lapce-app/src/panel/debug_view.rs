@@ -42,23 +42,23 @@ pub fn debug_panel(
 
     PanelBuilder::new(config, position)
         .add_height(
-            "Processes",
+            crate::i18n::t("debug.processes"),
             150.0,
             debug_processes(terminal.clone(), config),
             window_tab_data.panel.section_open(PanelSection::Process),
         )
         .add(
-            "Variables",
+            crate::i18n::t("debug.variables"),
             variables_view(window_tab_data.clone()),
             window_tab_data.panel.section_open(PanelSection::Variable),
         )
         .add(
-            "Stack Frames",
+            crate::i18n::t("debug.stack_frames"),
             debug_stack_traces(terminal.clone(), internal_command, config),
             window_tab_data.panel.section_open(PanelSection::StackFrame),
         )
         .add_height(
-            "Breakpoints",
+            crate::i18n::t("debug.breakpoints"),
             150.0,
             breakpoints_view(window_tab_data.clone()),
             window_tab_data.panel.section_open(PanelSection::Breakpoint),

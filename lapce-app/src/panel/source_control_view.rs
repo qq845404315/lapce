@@ -68,7 +68,7 @@ pub fn source_control_panel(
                             debug_breakline,
                             is_active,
                         ),
-                        label(|| "Commit Message".to_string()).style(move |s| {
+                        label(|| crate::i18n::t("panel.commit_message")).style(move |s| {
                             let config = config.get();
                             s.absolute()
                                 .items_center()
@@ -151,7 +151,7 @@ pub fn source_control_panel(
             }),
             {
                 let source_control = source_control.clone();
-                label(|| "Commit".to_string())
+                label(|| crate::i18n::t("panel.commit"))
                     .on_click_stop(move |_| {
                         source_control.commit();
                     })
@@ -181,7 +181,7 @@ pub fn source_control_panel(
         ))
         .style(|s| s.flex_col().width_pct(100.0).padding(10.0)),
         foldable_panel_section(
-            text("Changes"),
+            text(crate::i18n::t("panel.changes")),
             file_diffs_view(source_control),
             window_tab_data.panel.section_open(PanelSection::Changes),
             config,
@@ -325,7 +325,7 @@ fn file_diffs_view(source_control: SourceControlData) -> impl View {
             if let Event::PointerDown(pointer_event) = event {
                 if pointer_event.button.is_secondary() {
                     let menu = Menu::new("")
-                        .entry(MenuItem::new("Discard Changes").action(discard));
+                        .entry(MenuItem::new(crate::i18n::t("panel.discard_changes")).action(discard));
                     show_context_menu(menu, None);
                 }
             }

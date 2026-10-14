@@ -2027,7 +2027,7 @@ impl MainSplitData {
                             let doc = doc.clone();
                             internal_command.send(InternalCommand::HideAlert);
                             save_as(
-                                FileDialogOptions::new().title("Save File"),
+                                FileDialogOptions::new().title(crate::i18n::t("menu.save_file")),
                                 move |file: Option<FileInfo>| {
                                     let main_split = main_split.clone();
                                     let child = child.clone();
@@ -2590,7 +2590,7 @@ impl MainSplitData {
     pub fn save_scratch_doc(&self, doc: Rc<Doc>) {
         let main_split = self.clone();
         save_as(
-            FileDialogOptions::new().title("Save File"),
+            FileDialogOptions::new().title(crate::i18n::t("menu.save_file")),
             move |file: Option<FileInfo>| {
                 if let Some(mut file) = file {
                     main_split.save_as(
@@ -2611,7 +2611,7 @@ impl MainSplitData {
     pub fn save_scratch_doc2(&self, doc: Rc<Doc>) {
         let main_split = self.clone();
         save_as(
-            FileDialogOptions::new().title("Save File"),
+            FileDialogOptions::new().title(crate::i18n::t("menu.save_file")),
             move |file: Option<FileInfo>| {
                 if let Some(mut file) = file {
                     main_split.save_as2(

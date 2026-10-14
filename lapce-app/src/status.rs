@@ -77,14 +77,14 @@ pub fn status(
     stack((
         stack((
             label(move || match mode.get() {
-                Mode::Normal => "Normal".to_string(),
-                Mode::Insert => "Insert".to_string(),
+                Mode::Normal => crate::i18n::t("status.normal"),
+                Mode::Insert => crate::i18n::t("status.insert"),
                 Mode::Visual(mode) => match mode {
-                    VisualMode::Normal => "Visual".to_string(),
-                    VisualMode::Linewise => "Visual Line".to_string(),
-                    VisualMode::Blockwise => "Visual Block".to_string(),
+                    VisualMode::Normal => crate::i18n::t("status.visual"),
+                    VisualMode::Linewise => crate::i18n::t("status.visual_line"),
+                    VisualMode::Blockwise => crate::i18n::t("status.visual_block"),
                 },
-                Mode::Terminal => "Terminal".to_string(),
+                Mode::Terminal => crate::i18n::t("status.terminal"),
             })
             .style(move |s| {
                 let config = config.get();
@@ -256,7 +256,7 @@ pub fn status(
                     },
                     || false,
                     || false,
-                    || "Toggle Left Panel",
+                    || crate::i18n::t("status.toggle_left_panel"),
                     config,
                 )
             },
@@ -283,7 +283,7 @@ pub fn status(
                     },
                     || false,
                     || false,
-                    || "Toggle Bottom Panel",
+                    || crate::i18n::t("status.toggle_bottom_panel"),
                     config,
                 )
             },
@@ -308,7 +308,7 @@ pub fn status(
                     },
                     || false,
                     || false,
-                    || "Toggle Right Panel",
+                    || crate::i18n::t("status.toggle_right_panel"),
                     config,
                 )
             },

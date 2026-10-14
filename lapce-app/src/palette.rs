@@ -346,19 +346,17 @@ impl PaletteData {
     }
 
     /// Get the placeholder text to use in the palette input field.
-    pub fn placeholder_text(&self) -> &'static str {
+    pub fn placeholder_text(&self) -> String {
         match self.kind.get() {
-            PaletteKind::SshHost => {
-                "Type [user@]host or select a previously connected workspace below"
-            }
+            PaletteKind::SshHost => crate::i18n::t("palette.ssh_hint"),
             PaletteKind::DiffFiles => {
                 if self.left_diff_path.with(Option::is_some) {
-                    "Select right file"
+                    crate::i18n::t("palette.select_right_file")
                 } else {
-                    "Seleft left file"
+                    crate::i18n::t("palette.select_left_file")
                 }
             }
-            _ => "",
+            _ => String::new(),
         }
     }
 
@@ -490,8 +488,8 @@ impl PaletteData {
                 }
                 _ => {
                     internal_command_sender.send(InternalCommand::ShowAlert {
-                        title: format!("Error loading files."),
-                        msg: format!("Could not load file picker."),
+                        title: crate::i18n::t("palette.error_loading_files"),
+                        msg: crate::i18n::t("palette.error_file_picker"),
                         buttons: Vec::new(),
                     });
                     file_chooser_directory_writer.set(None);
@@ -523,7 +521,9 @@ impl PaletteData {
             .map(|(kind, cmd)| {
                 let description = kind.symbol().to_string()
                     + " "
-                    + cmd.get_message().unwrap_or("");
+                    + &crate::command::CommandKind::Workbench(cmd.clone())
+                        .desc()
+                        .unwrap_or_default();
 
                 PaletteItem {
                     content: PaletteItemContent::PaletteHelp { cmd },

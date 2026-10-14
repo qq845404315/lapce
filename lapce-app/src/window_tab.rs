@@ -741,7 +741,7 @@ impl WindowTabData {
             OpenFolder => {
                 if !self.workspace.kind.is_remote() {
                     let window_command = self.common.window_common.window_command;
-                    let mut options = FileDialogOptions::new().title("Choose a folder").select_directories();
+                    let mut options = FileDialogOptions::new().title(crate::i18n::t("menu.choose_folder")).select_directories();
                     options = if let Some(parent) = self.workspace.path.as_ref().and_then(|x| x.parent()) {
                         options.force_starting_directory(parent)
                     } else {
@@ -784,7 +784,7 @@ impl WindowTabData {
             OpenFile => {
                 if !self.workspace.kind.is_remote() {
                     let internal_command = self.common.internal_command;
-                    let options = FileDialogOptions::new().title("Choose a file");
+                    let options = FileDialogOptions::new().title(crate::i18n::t("menu.choose_file"));
                     open_file(options, move |file| {
                         if let Some(mut file) = file {
                             internal_command.send(InternalCommand::OpenFile {

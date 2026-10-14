@@ -115,7 +115,7 @@ pub fn alert_box(alert_data: AlertBoxData) -> impl View {
                     },
                 )
                 .style(|s| s.flex_col().width_pct(100.0).margin_top(10.0)),
-                label(|| "Cancel".to_string())
+                label(|| crate::i18n::t("alert.cancel"))
                     .on_click_stop(move |_| {
                         active.set(false);
                     })

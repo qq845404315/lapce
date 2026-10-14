@@ -95,7 +95,7 @@ impl PanelBuilder {
 
     fn add_general(
         mut self,
-        name: &'static str,
+        name: impl Into<String>,
         height: Option<PxPctAuto>,
         view: impl View + 'static,
         open: RwSignal<bool>,
@@ -103,7 +103,7 @@ impl PanelBuilder {
     ) -> Self {
         let position = self.position;
         let view = foldable_panel_section(
-            text(name).style(move |s| s.selectable(false)),
+            text(name.into()).style(move |s| s.selectable(false)),
             view,
             open,
             self.config,
@@ -133,7 +133,7 @@ impl PanelBuilder {
     /// Add a view to the panel
     pub fn add(
         self,
-        name: &'static str,
+        name: impl Into<String>,
         view: impl View + 'static,
         open: RwSignal<bool>,
     ) -> Self {
@@ -143,7 +143,7 @@ impl PanelBuilder {
     /// Add a view to the panel with a custom style applied to the overall header+section-content
     pub fn add_style(
         self,
-        name: &'static str,
+        name: impl Into<String>,
         view: impl View + 'static,
         open: RwSignal<bool>,
         style: impl Fn(Style) -> Style + 'static,
@@ -154,7 +154,7 @@ impl PanelBuilder {
     /// Add a view to the panel with a custom height that is only used when the panel is open
     pub fn add_height(
         self,
-        name: &'static str,
+        name: impl Into<String>,
         height: impl Into<PxPctAuto>,
         view: impl View + 'static,
         open: RwSignal<bool>,
@@ -172,7 +172,7 @@ impl PanelBuilder {
     /// and a custom style applied to the overall header+section-content
     pub fn add_height_style(
         self,
-        name: &'static str,
+        name: impl Into<String>,
         height: impl Into<PxPctAuto>,
         view: impl View + 'static,
         open: RwSignal<bool>,
@@ -184,7 +184,7 @@ impl PanelBuilder {
     /// Add a view to the panel with a custom height that is only used when the panel is open
     pub fn add_height_pct(
         self,
-        name: &'static str,
+        name: impl Into<String>,
         height: f64,
         view: impl View + 'static,
         open: RwSignal<bool>,
@@ -552,17 +552,19 @@ fn panel_picker(
         move |p| {
             let window_tab_data = window_tab_data.clone();
             let tooltip = match p {
-                PanelKind::Terminal => "Terminal",
-                PanelKind::FileExplorer => "File Explorer",
-                PanelKind::SourceControl => "Source Control",
-                PanelKind::Plugin => "Plugins",
-                PanelKind::Search => "Search",
-                PanelKind::Problem => "Problems",
-                PanelKind::Debug => "Debug",
-                PanelKind::CallHierarchy => "Call Hierarchy",
-                PanelKind::DocumentSymbol => "Document Symbol",
-                PanelKind::References => "References",
-                PanelKind::Implementation => "Implementation",
+                PanelKind::Terminal => crate::i18n::t("panel.terminal"),
+                PanelKind::FileExplorer => crate::i18n::t("panel.file_explorer"),
+                PanelKind::SourceControl => crate::i18n::t("panel.source_control"),
+                PanelKind::Plugin => crate::i18n::t("panel.plugin"),
+                PanelKind::Search => crate::i18n::t("panel.search"),
+                PanelKind::Problem => crate::i18n::t("panel.problem"),
+                PanelKind::Debug => crate::i18n::t("panel.debug"),
+                PanelKind::CallHierarchy => crate::i18n::t("panel.call_hierarchy"),
+                PanelKind::DocumentSymbol => crate::i18n::t("panel.document_symbol"),
+                PanelKind::References => crate::i18n::t("panel.references"),
+                PanelKind::Implementation => {
+                    crate::i18n::t("panel.implementation")
+                }
             };
             let icon = p.svg_name();
             let is_active = {

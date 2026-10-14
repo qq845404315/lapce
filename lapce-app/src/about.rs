@@ -110,12 +110,12 @@ pub fn about_popup(window_tab_data: Rc<WindowTabData>) -> impl View {
                     .margin_top(10.0)
                     .color(config.get().color(LapceColor::EDITOR_FOREGROUND))
             }),
-            label(|| format!("Version: {}", VERSION)).style(move |s| {
+            label(|| format!("{} {}", crate::i18n::t("about.version"), VERSION)).style(move |s| {
                 s.margin_top(10.0)
                     .color(config.get().color(LapceColor::EDITOR_DIM))
             }),
             web_link(
-                || "Website".to_string(),
+                || crate::i18n::t("about.website"),
                 || AboutUri::LAPCE.to_string(),
                 move || config.get().color(LapceColor::EDITOR_LINK),
                 internal_command,
@@ -142,7 +142,7 @@ pub fn about_popup(window_tab_data: Rc<WindowTabData>) -> impl View {
                 internal_command,
             )
             .style(|s| s.margin_top(10.0)),
-            label(|| "Attributions".to_string()).style(move |s| {
+            label(|| crate::i18n::t("about.attributions")).style(move |s| {
                 s.font_bold()
                     .color(config.get().color(LapceColor::EDITOR_DIM))
                     .margin_top(40.0)

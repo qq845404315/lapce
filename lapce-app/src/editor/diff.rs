@@ -374,7 +374,7 @@ pub fn diff_show_more_section_view(
                     s.size(size, size)
                         .color(config.color(LapceColor::EDITOR_FOREGROUND))
                 }),
-                label(|| "Expand All".to_string()).style(|s| s.margin_left(6.0)),
+                label(|| crate::i18n::t("diff.expand_all")).style(|s| s.margin_left(6.0)),
             ))
             .on_event_stop(EventListener::PointerDown, move |_| {})
             .on_click_stop(move |_event| {
@@ -415,7 +415,7 @@ pub fn diff_show_more_section_view(
                             .color(config.color(LapceColor::EDITOR_FOREGROUND))
                     },
                 ),
-                label(|| "Expand Up".to_string()).style(|s| s.margin_left(6.0)),
+                label(|| crate::i18n::t("diff.expand_up")).style(|s| s.margin_left(6.0)),
             ))
             .on_event_stop(EventListener::PointerDown, move |_| {})
             .on_click_stop(move |_event| {
@@ -456,7 +456,7 @@ pub fn diff_show_more_section_view(
                             .color(config.color(LapceColor::EDITOR_FOREGROUND))
                     },
                 ),
-                label(|| "Expand Down".to_string()).style(|s| s.margin_left(6.0)),
+                label(|| crate::i18n::t("diff.expand_down")).style(|s| s.margin_left(6.0)),
             ))
             .on_event_stop(EventListener::PointerDown, move |_| {})
             .on_click_stop(move |_event| {

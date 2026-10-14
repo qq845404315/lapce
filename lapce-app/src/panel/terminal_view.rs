@@ -142,7 +142,7 @@ fn terminal_tab_header(window_tab_data: Rc<WindowTabData>) -> impl View {
                                 },
                                 || false,
                                 || false,
-                                || "Close",
+                                || crate::i18n::t("panel.close"),
                                 config,
                             )
                             .style(|s| s.margin_horiz(6.0)),
@@ -230,7 +230,7 @@ fn terminal_tab_header(window_tab_data: Rc<WindowTabData>) -> impl View {
             },
             || false,
             || false,
-            || "New Terminal",
+            || crate::i18n::t("panel.new_terminal"),
             config,
         ))
         .on_resize(move |rect| {
@@ -370,13 +370,13 @@ fn tab_secondary_click(
 ) {
     let mut menu = Menu::new("");
     menu = menu
-        .entry(MenuItem::new("Stop").action(move || {
+        .entry(MenuItem::new(crate::i18n::t("panel.stop")).action(move || {
             internal_command.send(InternalCommand::StopTerminal { term_id });
         }))
-        .entry(MenuItem::new("Restart").action(move || {
+        .entry(MenuItem::new(crate::i18n::t("panel.restart")).action(move || {
             internal_command.send(InternalCommand::RestartTerminal { term_id });
         }))
-        .entry(MenuItem::new("Clear All").action(move || {
+        .entry(MenuItem::new(crate::i18n::t("panel.clear_all")).action(move || {
             internal_command.send(InternalCommand::ClearTerminalBuffer {
                 view_id,
                 tab_index,

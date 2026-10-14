@@ -145,6 +145,11 @@ impl LapceConfig {
 
         lapce_config.available_color_themes =
             Self::load_color_themes(disabled_volts, extra_plugin_paths);
+
+        // Normalize UI language; unknown tags fall back to English.
+        if !crate::i18n::is_supported(&lapce_config.core.language) {
+            lapce_config.core.language = "en-US".to_string();
+        }
         lapce_config.available_icon_themes =
             Self::load_icon_themes(disabled_volts, extra_plugin_paths);
         lapce_config.resolve_theme(workspace);
@@ -897,6 +902,18 @@ impl LapceConfig {
                     .position(|s| s == &self.icon_theme.name)
                     .unwrap_or(0),
                 items: self.icon_theme_list.clone(),
+            }),
+            ("core", "language") => Some(DropdownInfo {
+                active_index: crate::i18n::SUPPORTED_LANGUAGES
+                    .iter()
+                    .position(|s| {
+                        s.eq_ignore_ascii_case(self.core.language.trim())
+                    })
+                    .unwrap_or(0),
+                items: crate::i18n::SUPPORTED_LANGUAGES
+                    .iter()
+                    .map(|s| s.to_string())
+                    .collect(),
             }),
             ("editor", "wrap-style") => Some(DropdownInfo {
                 // TODO: it would be better to have the text not be the default kebab-case when

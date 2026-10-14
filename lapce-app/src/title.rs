@@ -56,7 +56,7 @@ fn left(
             || LapceIcons::MENU,
             || false,
             || false,
-            || "Menu",
+            || crate::i18n::t("menu.menu"),
             config,
         )
         .popout_menu(move || window_menu(lapce_command, workbench_command))
@@ -81,12 +81,12 @@ fn left(
                     })
                 },
             )),
-            || "Connect to Remote",
+            || crate::i18n::t("menu.connect_remote"),
         )
         .popout_menu(move || {
             #[allow(unused_mut)]
             let mut menu = Menu::new("").entry(
-                MenuItem::new("Connect to SSH Host").action(move || {
+                MenuItem::new(crate::i18n::t("menu.connect_ssh")).action(move || {
                     workbench_command.send(LapceWorkbenchCommand::ConnectSshHost);
                 }),
             );
@@ -95,7 +95,7 @@ fn left(
                     matches!(p, ProxyStatus::Connecting | ProxyStatus::Connected)
                 })
             {
-                menu = menu.entry(MenuItem::new("Disconnect remote").action(
+                menu = menu.entry(MenuItem::new(crate::i18n::t("menu.disconnect_remote")).action(
                     move || {
                         workbench_command
                             .send(LapceWorkbenchCommand::DisconnectRemote);
@@ -104,7 +104,7 @@ fn left(
             }
             #[cfg(windows)]
             {
-                menu = menu.entry(MenuItem::new("Connect to WSL Host").action(
+                menu = menu.entry(MenuItem::new(crate::i18n::t("menu.connect_wsl")).action(
                     move || {
                         workbench_command
                             .send(LapceWorkbenchCommand::ConnectWslHost);
@@ -180,7 +180,7 @@ fn middle(
             },
             || false,
             move || !can_jump_backward.get(),
-            || "Jump Backward",
+            || crate::i18n::t("menu.jump_backward"),
             config,
         )
         .style(move |s| s.margin_horiz(6.0))
@@ -193,7 +193,7 @@ fn middle(
             },
             || false,
             move || !can_jump_forward.get(),
-            || "Jump Forward",
+            || crate::i18n::t("menu.jump_forward"),
             config,
         )
         .style(move |s| s.margin_right(6.0))
@@ -204,15 +204,15 @@ fn middle(
             || LapceIcons::PALETTE_MENU,
             || false,
             || false,
-            || "Open Folder / Recent Workspace",
+            || crate::i18n::t("title.open_folder_recent"),
             config,
         )
         .popout_menu(move || {
             Menu::new("")
-                .entry(MenuItem::new("Open Folder").action(move || {
+                .entry(MenuItem::new(crate::i18n::t("menu.open_folder")).action(move || {
                     workbench_command.send(LapceWorkbenchCommand::OpenFolder);
                 }))
-                .entry(MenuItem::new("Open Recent Workspace").action(move || {
+                .entry(MenuItem::new(crate::i18n::t("menu.open_recent_workspace")).action(move || {
                     workbench_command.send(LapceWorkbenchCommand::PaletteWorkspace);
                 }))
         })
@@ -244,7 +244,7 @@ fn middle(
                     if let Some(s) = local_workspace.display() {
                         s
                     } else {
-                        "Open Folder".to_string()
+                        crate::i18n::t("menu.open_folder")
                     }
                 })
                 .style(|s| s.padding_left(10).padding_right(5).selectable(false)),
@@ -282,7 +282,7 @@ fn middle(
                 },
                 || false,
                 || false,
-                || "Run and Debug",
+                || crate::i18n::t("menu.run_and_debug"),
                 config,
             )
             .style(move |s| s.margin_horiz(6.0)),
@@ -336,25 +336,25 @@ fn right(
                 || LapceIcons::SETTINGS,
                 || false,
                 || false,
-                || "Settings",
+                || crate::i18n::t("menu.settings"),
                 config,
             )
             .popout_menu(move || {
                 Menu::new("")
-                    .entry(MenuItem::new("Command Palette").action(move || {
+                    .entry(MenuItem::new(crate::i18n::t("menu.command_palette")).action(move || {
                         workbench_command.send(LapceWorkbenchCommand::PaletteCommand)
                     }))
                     .separator()
-                    .entry(MenuItem::new("Open Settings").action(move || {
+                    .entry(MenuItem::new(crate::i18n::t("menu.open_settings")).action(move || {
                         workbench_command.send(LapceWorkbenchCommand::OpenSettings)
                     }))
-                    .entry(MenuItem::new("Open Keyboard Shortcuts").action(
+                    .entry(MenuItem::new(crate::i18n::t("menu.open_keyboard_shortcuts")).action(
                         move || {
                             workbench_command
                                 .send(LapceWorkbenchCommand::OpenKeyboardShortcuts)
                         },
                     ))
-                    .entry(MenuItem::new("Open Theme Color Settings").action(
+                    .entry(MenuItem::new(crate::i18n::t("menu.open_theme_color_settings")).action(
                         move || {
                             workbench_command
                                 .send(LapceWorkbenchCommand::OpenThemeColorSettings)
@@ -363,10 +363,17 @@ fn right(
                     .separator()
                     .entry(if let Some(v) = latest_version.get_untracked() {
                         if update_in_progress.get_untracked() {
-                            MenuItem::new(format!("Update in progress ({v})"))
-                                .enabled(false)
+                            MenuItem::new(format!(
+                                "{} ({v})",
+                                crate::i18n::t("title.update_in_progress")
+                            ))
+                            .enabled(false)
                         } else {
-                            MenuItem::new(format!("Restart to update ({v})")).action(
+                            MenuItem::new(format!(
+                                "{} ({v})",
+                                crate::i18n::t("title.restart_to_update")
+                            ))
+                            .action(
                                 move || {
                                     workbench_command
                                         .send(LapceWorkbenchCommand::RestartToUpdate)
@@ -374,10 +381,10 @@ fn right(
                             )
                         }
                     } else {
-                        MenuItem::new("No update available").enabled(false)
+                        MenuItem::new(crate::i18n::t("menu.no_update")).enabled(false)
                     })
                     .separator()
-                    .entry(MenuItem::new("About Lapce").action(move || {
+                    .entry(MenuItem::new(crate::i18n::t("menu.about")).action(move || {
                         workbench_command.send(LapceWorkbenchCommand::ShowAbout)
                     }))
             }),
@@ -487,7 +494,7 @@ pub fn window_controls_view(
             },
             || false,
             || false,
-            || "Minimize",
+            || crate::i18n::t("menu.minimize"),
             config,
         )
         .style(|s| s.margin_right(16.0).margin_left(10.0)),
@@ -506,7 +513,7 @@ pub fn window_controls_view(
             },
             || false,
             || false,
-            || "Maximize",
+            || crate::i18n::t("menu.maximize"),
             config,
         )
         .style(|s| s.margin_right(16.0)),
@@ -517,7 +524,7 @@ pub fn window_controls_view(
             },
             || false,
             || false,
-            || "Close Window",
+            || crate::i18n::t("menu.close_window"),
             config,
         )
         .style(|s| s.margin_right(6.0)),

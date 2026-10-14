@@ -612,26 +612,30 @@ impl PluginData {
         let mut menu = Menu::new("");
         if meta.version != latest.version {
             menu = menu
-                .entry(MenuItem::new("Upgrade Plugin").action({
-                    let plugin = self.clone();
-                    let info = latest.clone();
-                    move || {
-                        plugin.install_volt(info.clone());
-                    }
-                }))
+                .entry(
+                    MenuItem::new(crate::i18n::t("plugin.upgrade")).action({
+                        let plugin = self.clone();
+                        let info = latest.clone();
+                        move || {
+                            plugin.install_volt(info.clone());
+                        }
+                    }),
+                )
                 .separator();
         }
         menu = menu
-            .entry(MenuItem::new("Reload Plugin").action({
-                let plugin = self.clone();
-                let meta = meta.clone();
-                move || {
-                    plugin.reload_volt(meta.clone());
-                }
-            }))
+            .entry(
+                MenuItem::new(crate::i18n::t("plugin.reload")).action({
+                    let plugin = self.clone();
+                    let meta = meta.clone();
+                    move || {
+                        plugin.reload_volt(meta.clone());
+                    }
+                }),
+            )
             .separator()
             .entry(
-                MenuItem::new("Enable")
+                MenuItem::new(crate::i18n::t("plugin.enable"))
                     .enabled(
                         self.disabled
                             .with_untracked(|disabled| disabled.contains(&volt_id)),
@@ -645,7 +649,7 @@ impl PluginData {
                     }),
             )
             .entry(
-                MenuItem::new("Disable")
+                MenuItem::new(crate::i18n::t("plugin.disable"))
                     .enabled(
                         self.disabled
                             .with_untracked(|disabled| !disabled.contains(&volt_id)),
@@ -660,7 +664,7 @@ impl PluginData {
             )
             .separator()
             .entry(
-                MenuItem::new("Enable For Workspace")
+                MenuItem::new(crate::i18n::t("plugin.enable_workspace"))
                     .enabled(
                         self.workspace_disabled
                             .with_untracked(|disabled| disabled.contains(&volt_id)),
@@ -674,7 +678,7 @@ impl PluginData {
                     }),
             )
             .entry(
-                MenuItem::new("Disable For Workspace")
+                MenuItem::new(crate::i18n::t("plugin.disable_workspace"))
                     .enabled(
                         self.workspace_disabled
                             .with_untracked(|disabled| !disabled.contains(&volt_id)),
@@ -688,12 +692,14 @@ impl PluginData {
                     }),
             )
             .separator()
-            .entry(MenuItem::new("Uninstall").action({
-                let plugin = self.clone();
-                move || {
-                    plugin.uninstall_volt(meta.clone());
-                }
-            }));
+            .entry(
+                MenuItem::new(crate::i18n::t("plugin.uninstall")).action({
+                    let plugin = self.clone();
+                    move || {
+                        plugin.uninstall_volt(meta.clone());
+                    }
+                }),
+            );
         menu
     }
 }
@@ -745,13 +751,20 @@ pub fn plugin_info_view(plugin: PluginData, volt: VoltID) -> impl View {
                     Some(l) => (true, l == v),
                     None => (false, false),
                 }) {
-                Some((true, true)) => "Installed ▼",
-                Some((true, false)) => "Upgrade ▼",
+                Some((true, true)) => {
+                    format!("{} ▼", crate::i18n::t_or("plugin.installed", "Installed"))
+                }
+                Some((true, false)) => {
+                    format!(
+                        "{} ▼",
+                        crate::i18n::t_or("plugin.upgrade_available", "Upgrade")
+                    )
+                }
                 _ => {
                     if installing.map(|i| i.get()).unwrap_or(false) {
-                        "Installing"
+                        crate::i18n::t_or("plugin.installing", "Installing")
                     } else {
-                        "Install"
+                        crate::i18n::t_or("plugin.install", "Install")
                     }
                 }
             }

@@ -11,6 +11,10 @@ pub struct CoreConfig {
     #[field_names(desc = "Set the icon theme of Lapce")]
     pub icon_theme: String,
     #[field_names(
+        desc = "Set the interface display language. Takes effect after restart."
+    )]
+    pub language: String,
+    #[field_names(
         desc = "Enable customised titlebar and disable OS native one (Linux, BSD, Windows)"
     )]
     pub custom_titlebar: bool,

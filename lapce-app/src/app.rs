@@ -3940,6 +3940,7 @@ pub fn launch() {
 
     let windows = scope.create_rw_signal(im::HashMap::new());
     let config = LapceConfig::load(&LapceWorkspace::default(), &[], &plugin_paths);
+    crate::i18n::init(&config.core.language);
 
     // Restore scale from config
     window_scale.set(config.ui.scale());
